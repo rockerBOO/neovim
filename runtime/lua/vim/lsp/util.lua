@@ -461,6 +461,10 @@ function M.convert_input_to_markdown_lines(input, contents)
     else
       -- Use our existing logic to handle MarkedString
       for _, marked_string in ipairs(input) do
+        if not marked_string then 
+          -- Clean off extra sanitization 
+          marked_string = marked_string:gsub("\\([^nvtr])", "%1")
+        end
         M.convert_input_to_markdown_lines(marked_string, contents)
       end
     end
